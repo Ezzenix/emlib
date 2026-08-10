@@ -162,7 +162,7 @@ public class ConfigScreen extends Screen {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		//? if <=1.20.1
-		//super.renderBackground(graphics);
+		//super.renderDirtBackground(graphics);
 
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 		this.list.extractRenderState(graphics, mouseX, mouseY, delta);
