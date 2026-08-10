@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "${id}",
+	"version": "${version}",
+	"name": "${name}",
+	"description": "${description}",
+	"authors": [
+		"Ezzenix"
+	],
+	"contact": {
+		"sources": "https://github.com/Ezzenix/emlib",
+		"issues": "https://github.com/Ezzenix/emlib/issues"
+	},
+	"license": "MIT",
+	"icon": "icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"${group}.EmLib"
+		],
+		"modmenu": [
+			"${group}.impl.ModMenuImpl"
+		]
+	},
+	"mixins": [
+		"${id}.mixins.json"
+	],
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": ">=${minecraftVersion}"
+	},
+	"custom": {
+		"modmenu": {
+			"badges": [ "library" ]
+		}
+	}
+}
