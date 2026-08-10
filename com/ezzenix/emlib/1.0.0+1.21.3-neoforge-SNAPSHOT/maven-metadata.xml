@@ -3,21 +3,21 @@
   <groupId>com.ezzenix</groupId>
   <artifactId>emlib</artifactId>
   <versioning>
-    <lastUpdated>20260810163353</lastUpdated>
+    <lastUpdated>20260810203640</lastUpdated>
     <snapshot>
-      <timestamp>20260810.163353</timestamp>
+      <timestamp>20260810.203640</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>1.0.0+1.21.3-neoforge-20260810.163353-1</value>
-        <updated>20260810163353</updated>
+        <value>1.0.0+1.21.3-neoforge-20260810.203640-1</value>
+        <updated>20260810203640</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>1.0.0+1.21.3-neoforge-20260810.163353-1</value>
-        <updated>20260810163353</updated>
+        <value>1.0.0+1.21.3-neoforge-20260810.203640-1</value>
+        <updated>20260810203640</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

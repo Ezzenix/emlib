@@ -5,33 +5,33 @@
   <versioning>
     <latest>1.0.0+26.2-neoforge-SNAPSHOT</latest>
     <versions>
-      <version>1.0.0+1.20.1-forge-SNAPSHOT</version>
-      <version>1.0.0+1.20.6-forge-SNAPSHOT</version>
-      <version>1.0.0+1.20.1-fabric-SNAPSHOT</version>
       <version>1.0.0+1.20.6-fabric-SNAPSHOT</version>
+      <version>1.0.0+1.20.6-forge-SNAPSHOT</version>
+      <version>1.0.0+1.20.1-forge-SNAPSHOT</version>
+      <version>1.0.0+1.20.1-fabric-SNAPSHOT</version>
+      <version>1.0.0+1.21-fabric-SNAPSHOT</version>
       <version>1.0.0+1.20.6-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21-neoforge-SNAPSHOT</version>
-      <version>1.0.0+1.21-fabric-SNAPSHOT</version>
       <version>1.0.0+1.21-forge-SNAPSHOT</version>
       <version>1.0.0+1.21.11-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21.11-fabric-SNAPSHOT</version>
-      <version>1.0.0+1.21.2-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21.2-fabric-SNAPSHOT</version>
-      <version>1.0.0+1.21.3-forge-SNAPSHOT</version>
+      <version>1.0.0+1.21.2-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21.3-fabric-SNAPSHOT</version>
+      <version>1.0.0+1.21.3-forge-SNAPSHOT</version>
       <version>1.0.0+1.21.3-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21.5-neoforge-SNAPSHOT</version>
-      <version>1.0.0+1.21.5-forge-SNAPSHOT</version>
       <version>1.0.0+1.21.5-fabric-SNAPSHOT</version>
-      <version>1.0.0+1.21.6-neoforge-SNAPSHOT</version>
+      <version>1.0.0+1.21.5-forge-SNAPSHOT</version>
       <version>1.0.0+1.21.6-fabric-SNAPSHOT</version>
-      <version>1.0.0+1.21.9-neoforge-SNAPSHOT</version>
+      <version>1.0.0+1.21.6-neoforge-SNAPSHOT</version>
       <version>1.0.0+1.21.9-fabric-SNAPSHOT</version>
+      <version>1.0.0+1.21.9-neoforge-SNAPSHOT</version>
       <version>1.0.0+26.1-fabric-SNAPSHOT</version>
       <version>1.0.0+26.1-neoforge-SNAPSHOT</version>
       <version>1.0.0+26.2-fabric-SNAPSHOT</version>
       <version>1.0.0+26.2-neoforge-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20260810163657</lastUpdated>
+    <lastUpdated>20260810204008</lastUpdated>
   </versioning>
 </metadata>
