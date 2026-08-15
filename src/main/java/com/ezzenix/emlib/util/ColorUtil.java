@@ -46,10 +46,18 @@ public class ColorUtil {
 	}
 
 	public static String toHexString(int color) {
-		return String.format("#%08x", color);
+		return toHexString(color, true);
 	}
 
-	public static int changeBrightness(int color, float factor) {
+	public static String toHexString(int color, boolean includeAlpha) {
+		if (includeAlpha) {
+			return String.format("#%08x", color);
+		} else {
+			return String.format("#%06x", color & 0xFFFFFF);
+		}
+	}
+
+	public static int adjustBrightness(int color, float factor) {
 		int alpha = (color >> 24) & 0xFF;
 		int red = (color >> 16) & 0xFF;
 		int green = (color >> 8) & 0xFF;

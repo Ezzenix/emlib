@@ -116,7 +116,7 @@ public class ConfigScreen extends Screen {
 				this.list.add(List.of(button, resetButton), info);
 			} else if (info.getType() == int.class && info.option.isColor()) {
 				/* color editor */
-				ColorEditorWidget editor = new ColorEditorWidget(buttonLeftX, 0, 120, 90, (int)info.getValue());
+				ColorEditorWidget editor = new ColorEditorWidget(buttonLeftX, 0, 120, 90, (int)info.getValue(), info.option.allowAlpha());
 				ConfigColorButton widget = new ConfigColorButton(buttonLeftX, 0, BUTTON_WIDTH, 20, info, editor, this);
 				widget.setTooltip(tooltip);
 

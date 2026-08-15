@@ -169,6 +169,7 @@ public abstract class EmConfig {
 		boolean offText() default false;
 		boolean isSlider() default false;
 		boolean isColor() default false;
+		boolean allowAlpha() default false;
 	}
 
 	@Retention(RetentionPolicy.RUNTIME)

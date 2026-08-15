@@ -16,7 +16,7 @@ class ConfigColorButton extends Button.Plain {
 	private final ConfigScreen screen;
 
 	public ConfigColorButton(int x, int y, int width, int height, EntryInfo info, ColorEditorWidget editor, ConfigScreen screen) {
-		super(x, y, width, height, Component.literal(toHexString((int)info.getValue())), b -> {
+		super(x, y, width, height, Component.literal(toHexString((int)info.getValue(), info.option.allowAlpha())), b -> {
 			if (screen.activeColorEditor == editor) {
 				screen.activeColorEditor = null;
 			} else {
@@ -31,7 +31,7 @@ class ConfigColorButton extends Button.Plain {
 
 		editor.setResponder(color -> {
 			info.setValue(color);
-			this.setMessage(Component.literal(toHexString(color)));
+			this.setMessage(Component.literal(toHexString(color, info.option.allowAlpha())));
 		});
 	}
 

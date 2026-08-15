@@ -38,12 +38,15 @@ public class ColorEditorWidget extends AbstractWidget {
 	private float value = 1f;
 	private float alpha = 1f;
 
+	private boolean allowAlpha;
+
 	private Consumer<Integer> responder;
 
-	public ColorEditorWidget(int x, int y, int width, int height, int color) {
+	public ColorEditorWidget(int x, int y, int width, int height, int color, boolean allowAlpha) {
 		super(x, y, width, height, Component.literal("Color editor"));
 		fromRGBA(color);
 		invalidateAllTextures();
+		this.allowAlpha = allowAlpha;
 	}
 
 	@Override
@@ -56,7 +59,9 @@ public class ColorEditorWidget extends AbstractWidget {
 
 		drawColorRect(graphics);
 		drawHueRect(graphics);
-		drawAlphaRect(graphics);
+		if (this.allowAlpha) {
+			drawAlphaRect(graphics);
+		}
 
 		em.popMatrix();
 	}
@@ -128,7 +133,7 @@ public class ColorEditorWidget extends AbstractWidget {
 			getX()+padding,
 			getY()+padding,
 			getWidth()-padding*3-15,
-			getHeight()-padding*3-10
+			getHeight()-(this.allowAlpha ? padding*3+10 : padding*2)
 		);
 	}
 
@@ -142,6 +147,7 @@ public class ColorEditorWidget extends AbstractWidget {
 	}
 
 	private ScreenRectangle alphaRect() {
+		if (!this.allowAlpha) return new ScreenRectangle(0, 0, 0, 0);
 		return new ScreenRectangle(
 			getX()+padding,
 			colorRect().bottom()+padding,
@@ -151,7 +157,7 @@ public class ColorEditorWidget extends AbstractWidget {
 	}
 
 	private int getCurrentColor() {
-		return hsvToRGBA(hue, this.saturation, this.value, this.alpha);
+		return hsvToRGBA(hue, this.saturation, this.value, this.allowAlpha ? this.alpha : 1f);
 	}
 
 	private boolean updateFromMouse(double mouseX, double mouseY, boolean isClick) {
@@ -176,7 +182,7 @@ public class ColorEditorWidget extends AbstractWidget {
 			return true;
 		}
 
-		if (dragType == Type.ALPHA || (isClick && containsPoint(alphaRect(), mouseX, mouseY))) {
+		if (dragType == Type.ALPHA || (isClick && containsPoint(alphaRect(), mouseX, mouseY)) && this.allowAlpha) {
 			ScreenRectangle rect = alphaRect();
 			alpha = (float)((mouseX - rect.left()) / rect.width());
 			alpha = Mth.clamp(alpha, 0f, 1f);
@@ -277,7 +283,7 @@ public class ColorEditorWidget extends AbstractWidget {
 		this.hue = args[0];
 		this.saturation = args[1];
 		this.value = args[2];
-		this.alpha = args[3];
+		this.alpha = this.allowAlpha ? args[3] : 1f;
 	}
 
 	public static void invalidateAllTextures() {
