@@ -16,7 +16,7 @@ class ConfigEditBoxWidget extends EditBox {
 	private static final Pattern DECIMAL_ONLY = Pattern.compile("-?(\\d+\\.?\\d*|\\d*\\.?\\d+|\\.)");
 
 	private final EntryInfo info;
-	private final EmConfig.Entry e;
+	private final EmConfig.Option option;
 
 	private Pattern pattern = null;
 	private String lastValidText = "";
@@ -24,7 +24,7 @@ class ConfigEditBoxWidget extends EditBox {
 
 	public ConfigEditBoxWidget(int x, int y, int width, int height, EntryInfo info) {
 		super(Minecraft.getInstance().font, x, y, width, height, Component.empty());
-		this.e = info.entry;
+		this.option = info.option;
 		this.info = info;
 
 		if (info.getType() == int.class) {
@@ -62,22 +62,22 @@ class ConfigEditBoxWidget extends EditBox {
 		try {
 			if (info.getType() == int.class) {
 				int value = Integer.parseInt(trimmed);
-				int min = (int) e.min();
-				int max = (int) e.max();
+				int min = (int) option.min();
+				int max = (int) option.max();
 				if (value < min || value > max) redText = true;
 				info.setValue(Mth.clamp(value, min, max));
 
 			} else if (info.getType() == float.class) {
 				float value = Float.parseFloat(trimmed);
-				float min = (float) e.min();
-				float max = (float) e.max();
+				float min = (float) option.min();
+				float max = (float) option.max();
 				if (value < min || value > max) redText = true;
 				info.setValue(Mth.clamp(value, min, max));
 
 			} else if (info.getType() == double.class) {
 				double value = Double.parseDouble(trimmed);
-				double min = e.min();
-				double max = e.max();
+				double min = option.min();
+				double max = option.max();
 				if (value < min || value > max) redText = true;
 				info.setValue(Mth.clamp(value, min, max));
 

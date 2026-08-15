@@ -5,21 +5,21 @@ import net.minecraft.network.chat.Component;
 
 class ConfigSliderWidget extends AbstractSliderButton {
 	private final EntryInfo info;
-	private final EmConfig.Entry e;
+	private final EmConfig.Option option;
 
 	public ConfigSliderWidget(int x, int y, int width, int height, double value, EntryInfo info) {
 		super(x, y, width, height, Component.empty(), Math.min(Math.max(value, 0), 1));
-		this.e = info.entry;
+		this.option = info.option;
 		this.info = info;
 
 		this.setMessage(buildLabel());
 	}
 
 	private Component buildLabel() {
-		if (info.entry.offText() && String.valueOf(info.getValue()).equals("0")) {
+		if (info.option.offText() && String.valueOf(info.getValue()).equals("0")) {
 			return Component.literal("OFF");
 		}
-		return Component.literal(info.getValue() + info.entry.suffix());
+		return Component.literal(info.getValue() + info.option.suffix());
 	}
 
 	@Override
@@ -29,11 +29,11 @@ class ConfigSliderWidget extends AbstractSliderButton {
 
 	@Override
 	protected void applyValue() {
-		if (info.getType() == int.class) info.setValue(((Number) (e.min() + value * (e.max() - e.min()))).intValue());
+		if (info.getType() == int.class) info.setValue(((Number) (option.min() + value * (option.max() - option.min()))).intValue());
 		else if (info.getType() == double.class)
-			info.setValue(Math.round((e.min() + value * (e.max() - e.min())) * (double) e.precision()) / (double) e.precision());
+			info.setValue(Math.round((option.min() + value * (option.max() - option.min())) * (double) option.precision()) / (double) option.precision());
 		else if (info.getType() == float.class)
-			info.setValue(Math.round((e.min() + value * (e.max() - e.min())) * (float) e.precision()) / (float) e.precision());
+			info.setValue(Math.round((option.min() + value * (option.max() - option.min())) * (float) option.precision()) / (float) option.precision());
 	}
 
 }

@@ -19,13 +19,4 @@ public class EmId {
 		return of("minecraft:" + path);
 	}
 
-	public static Identifier forSprite(String namespace, String spriteName) {
-		//? if >1.20.1 {
-		return of(namespace, spriteName);
-		//? } else {
-		/*return of(namespace, "textures/gui/sprites/"+spriteName+".png");
-		 *///? }
-	}
-
-
 }

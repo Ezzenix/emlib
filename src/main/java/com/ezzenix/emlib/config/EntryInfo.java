@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import java.lang.reflect.Field;
 
 class EntryInfo {
-	public EmConfig.Entry entry;
+	public EmConfig.Option option;
 	public EmConfig.Comment comment;
 	public EmConfig.Requires[] requires;
 	public Field field;
@@ -20,8 +20,9 @@ class EntryInfo {
 
 	public EntryInfo(Field field, String modId) {
 		this.field = field;
+		this.field.setAccessible(true);
 		this.modId = modId;
-		this.entry = field.getAnnotation(EmConfig.Entry.class);
+		this.option = field.getAnnotation(EmConfig.Option.class);
 		this.comment = field.getAnnotation(EmConfig.Comment.class);
 		this.requires = field.getAnnotationsByType(EmConfig.Requires.class);
 		this.defaultValue = getValue();
@@ -76,7 +77,7 @@ class EntryInfo {
 
 	public Object getValue() {
 		try {
-			return field.get(null);
+			return field.get(EmConfig.instances.get(this.modId));
 		} catch (IllegalAccessException e) {
 			EmLib.LOGGER.error("Failed to get config value", e);
 			return null;
@@ -85,7 +86,7 @@ class EntryInfo {
 
 	public void setValue(Object newValue) {
 		try {
-			field.set(null, newValue);
+			field.set(EmConfig.instances.get(this.modId), newValue);
 		} catch (IllegalAccessException e) {
 			EmLib.LOGGER.error("Failed to set config value", e);
 		}

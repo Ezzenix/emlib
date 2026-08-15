@@ -5,16 +5,14 @@ import com.ezzenix.emlib.util.Platform;
 import com.google.gson.*;
 import net.minecraft.client.gui.screens.Screen;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public abstract class EmConfig {
 		.addSerializationExclusionStrategy(new ExclusionStrategy() {
 			public boolean shouldSkipClass(Class<?> clazz) { return false; }
 			public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-				return fieldAttributes.getAnnotation(Entry.class) == null;
+				return fieldAttributes.getAnnotation(Option.class) == null;
 			}
 		})
 		.registerTypeAdapterFactory(new EnumTypeAdapterFactory())
@@ -68,7 +66,7 @@ public abstract class EmConfig {
 
 		for (Field field : config.getFields()) {
 			if (
-				(field.isAnnotationPresent(Entry.class) || field.isAnnotationPresent(Comment.class))
+				(field.isAnnotationPresent(Option.class) || field.isAnnotationPresent(Comment.class))
 				&& !field.isAnnotationPresent(Hidden.class)
 			) {
 				instance.entries.add(new EntryInfo(field, modId));
@@ -109,8 +107,14 @@ public abstract class EmConfig {
 			return;
 		}
 
-		try (FileReader reader = new FileReader(configFile)) {
-			GSON.fromJson(reader, configClass);
+		try (Reader reader = Files.newBufferedReader(configFile.toPath(), StandardCharsets.UTF_8)) {
+			EmConfig loaded = GSON.fromJson(reader, configClass);
+			for (EntryInfo info : this.entries) {
+				Object loadedValue = info.field.get(loaded);
+				if (loadedValue != null) {
+					info.field.set(this, loadedValue);
+				}
+			}
 		} catch (JsonParseException e) {
 			EmLib.LOGGER.error("Config for mod {} is invalid", this.modId, e);
 
@@ -127,7 +131,7 @@ public abstract class EmConfig {
 			}
 
 			save();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			EmLib.LOGGER.error("Failed to read config for mod {}", this.modId, e);
 		}
 
@@ -135,9 +139,13 @@ public abstract class EmConfig {
 	}
 
 	public void save() {
-		try (FileWriter writer = new FileWriter(configFile)) {
-			Object dummyInstance = configClass.getDeclaredConstructor().newInstance();
-			GSON.toJson(dummyInstance, writer);
+		try {
+			if (!configFile.getParentFile().exists()) {
+				configFile.getParentFile().mkdirs();
+			}
+			try (Writer writer = Files.newBufferedWriter(configFile.toPath(), StandardCharsets.UTF_8)) {
+				GSON.toJson(this, writer);
+			}
 		} catch (Exception e) {
 			EmLib.LOGGER.error("Failed to save config for mod {}", this.modId, e);
 		}
@@ -153,7 +161,7 @@ public abstract class EmConfig {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.FIELD)
-	public @interface Entry {
+	public @interface Option {
 		double min() default Double.MIN_NORMAL;
 		double max() default Double.MAX_VALUE;
 		int precision() default 100;

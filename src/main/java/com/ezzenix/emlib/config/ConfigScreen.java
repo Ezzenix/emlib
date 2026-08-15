@@ -114,16 +114,17 @@ public class ConfigScreen extends Screen {
 				}).tooltip(tooltip).bounds(buttonLeftX, 0, BUTTON_WIDTH, 20).build();
 
 				this.list.add(List.of(button, resetButton), info);
-			} else if (info.getType() == int.class && info.entry.isColor()) {
+			} else if (info.getType() == int.class && info.option.isColor()) {
 				/* color editor */
 				ColorEditorWidget editor = new ColorEditorWidget(buttonLeftX, 0, 120, 90, (int)info.getValue());
 				ConfigColorButton widget = new ConfigColorButton(buttonLeftX, 0, BUTTON_WIDTH, 20, info, editor, this);
 				widget.setTooltip(tooltip);
 
 				this.list.add(List.of(widget, resetButton), info);
-			} else if (info.entry.isSlider() && (info.getType() == int.class || info.getType() == float.class || info.getType() == double.class)) {
+			} else if (info.option.isSlider() && (info.getType() == int.class || info.getType() == float.class || info.getType() == double.class)) {
 				/* number slider */
-				double normalized = (Double.parseDouble(info.getValue().toString()) - info.entry.min()) / (info.entry.max() - info.entry.min());
+				double range = info.option.max() - info.option.min();
+				double normalized = range == 0 ? 0 : (Double.parseDouble(info.getValue().toString()) - info.option.min()) / range;
 				ConfigSliderWidget slider = new ConfigSliderWidget(buttonLeftX, 0, BUTTON_WIDTH, 20, normalized, info);
 				slider.setTooltip(tooltip);
 
@@ -238,7 +239,7 @@ public class ConfigScreen extends Screen {
 			//?} else {
 			/*public void extractRenderState(GuiGraphicsExtractor graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
 			*///?}
-				boolean isHovered = this.isMouseOver(mouseX, mouseY) && info.entry != null;
+				boolean isHovered = this.isMouseOver(mouseX, mouseY) && info.option != null;
 
 				float targetOffsetX = isHovered ? 4f : 0f;
 				float targetBgAlpha = isHovered ? 0.04f : 0f;
