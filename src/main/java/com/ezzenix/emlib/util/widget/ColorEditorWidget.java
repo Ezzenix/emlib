@@ -1,4 +1,4 @@
-package com.ezzenix.emlib.config;
+package com.ezzenix.emlib.util.widget;
 
 import com.ezzenix.emlib.util.EmGraphics;
 import com.ezzenix.emlib.util.EmId;
@@ -38,7 +38,7 @@ public class ColorEditorWidget extends AbstractWidget {
 	private float value = 1f;
 	private float alpha = 1f;
 
-	private boolean allowAlpha;
+	private final boolean allowAlpha;
 
 	private Consumer<Integer> responder;
 

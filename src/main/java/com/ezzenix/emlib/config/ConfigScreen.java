@@ -2,6 +2,9 @@ package com.ezzenix.emlib.config;
 
 import com.ezzenix.emlib.EmLib;
 import com.ezzenix.emlib.util.*;
+import com.ezzenix.emlib.util.widget.ColorEditorWidget;
+import com.ezzenix.emlib.util.widget.IconButtonWidget;
+import com.ezzenix.emlib.util.widget.RightClickableButton;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package com.ezzenix.emlib.util;
+package com.ezzenix.emlib.util.widget;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
