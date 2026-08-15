@@ -2,6 +2,7 @@ package com.ezzenix.emlib.util.widget;
 
 import com.ezzenix.emlib.util.EmGraphics;
 import com.ezzenix.emlib.util.EmPort;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
