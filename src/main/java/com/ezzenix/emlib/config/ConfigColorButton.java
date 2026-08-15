@@ -60,9 +60,12 @@ class ConfigColorButton extends Button.Plain {
 	/*protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
 		super.extractWidgetRenderState(graphics, mouseX, mouseY, a);
 	*///? }
+
+		int textWidth = Minecraft.getInstance().font.width(this.getMessage().getString());
+		int x = this.getX() + this.getWidth()/2 - textWidth/2 - 10 - 6;
 		EmGraphics em = new EmGraphics(graphics);
-		em.rect(this.getX() + 16, this.getY() + 5, 10, 10, (int)info.getValue());
-		em.outline(this.getX() + 16, this.getY() + 5, 10, 10, 0xffffffff);
+		em.rect(x, this.getY() + 5, 10, 10, (int)info.getValue());
+		em.outline(x, this.getY() + 5, 10, 10, 0xffffffff);
 	}
 
 }
