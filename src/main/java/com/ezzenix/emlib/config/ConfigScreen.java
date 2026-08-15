@@ -66,6 +66,10 @@ public class ConfigScreen extends Screen {
 	public void tick() {
 		super.tick();
 		updateButtons();
+		if (this.instance.needsScreenUpdate) {
+			this.instance.needsScreenUpdate = false;
+			this.updateList();
+		}
 	}
 
 	public void changed() { }
@@ -82,15 +86,18 @@ public class ConfigScreen extends Screen {
 
 	public void updateList() {
 		this.list.clear();
+		this.activeColorEditor = null;
 		int rightX = width/2+ROW_WIDTH/2;
 		int buttonLeftX = rightX-BUTTON_WIDTH-25;
 		for (EntryInfo info : this.instance.entries) {
+			if (info.locked) continue;
+
 			if (info.comment != null) {
 				this.list.add(List.of(), info);
 				continue;
 			}
 
-			Tooltip tooltip = info.getTooltip(this.instance.modId);
+			Tooltip tooltip = info.getTooltip();
 
 			IconButtonWidget resetButton = new IconButtonWidget(b -> {
 				info.setValue(info.defaultValue);
@@ -213,13 +220,13 @@ public class ConfigScreen extends Screen {
 			public final Component title;
 			private final boolean centered;
 
-			private float currentOffsetX = 0f;
-			private float currentBgAlpha = 0f;
+			private float currentOffsetX = Float.MAX_VALUE;
+			private float currentBgAlpha = Float.MAX_VALUE;
 
 			public Entry(List<AbstractWidget> buttons, EntryInfo info) {
 				this.buttons = buttons;
 				this.info = info;
-				this.title = info.getName(ConfigScreen.this.instance.modId);
+				this.title = info.getName();
 				this.centered = info.comment != null && info.comment.centered();
 			}
 
@@ -235,6 +242,9 @@ public class ConfigScreen extends Screen {
 
 				float targetOffsetX = isHovered ? 4f : 0f;
 				float targetBgAlpha = isHovered ? 0.04f : 0f;
+
+				if (this.currentOffsetX == Float.MAX_VALUE) this.currentOffsetX = targetOffsetX;
+				if (this.currentBgAlpha == Float.MAX_VALUE) this.currentBgAlpha = targetBgAlpha;
 
 				float speed = 0.65f;
 				float adaptiveSpeed = 1.0f - (float)Math.pow(1.0f - speed, tickDelta);

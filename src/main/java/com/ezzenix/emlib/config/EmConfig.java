@@ -41,6 +41,7 @@ public abstract class EmConfig {
 	protected File configFile;
 	protected Class<? extends EmConfig> configClass;
 	protected ScreenFactory screenFactory = ConfigScreen::new;
+	protected boolean needsScreenUpdate = false;
 
 	public static final Map<String, EmConfig> instances = new HashMap<>();
 
@@ -70,7 +71,7 @@ public abstract class EmConfig {
 				(field.isAnnotationPresent(Entry.class) || field.isAnnotationPresent(Comment.class))
 				&& !field.isAnnotationPresent(Hidden.class)
 			) {
-				instance.entries.add(new EntryInfo(field));
+				instance.entries.add(new EntryInfo(field, modId));
 			}
 		}
 
@@ -129,6 +130,8 @@ public abstract class EmConfig {
 		} catch (IOException e) {
 			EmLib.LOGGER.error("Failed to read config for mod {}", this.modId, e);
 		}
+
+		this.entries.forEach(EntryInfo::updateLocked);
 	}
 
 	public void save() {
@@ -164,6 +167,14 @@ public abstract class EmConfig {
 	@Target(ElementType.FIELD)
 	public @interface Comment {
 		boolean centered() default true;
+	}
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.FIELD)
+	public @interface Requires {
+		String modId() default "";
+		String option() default "";
+		String value() default "";
 	}
 
 	@Retention(RetentionPolicy.RUNTIME)
