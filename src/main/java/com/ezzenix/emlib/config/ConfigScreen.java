@@ -1,10 +1,7 @@
 package com.ezzenix.emlib.config;
 
 import com.ezzenix.emlib.EmLib;
-import com.ezzenix.emlib.util.EmId;
-import com.ezzenix.emlib.util.EmPort;
-import com.ezzenix.emlib.util.IconButtonWidget;
-import com.ezzenix.emlib.util.RightClickableButton;
+import com.ezzenix.emlib.util.*;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -19,9 +16,9 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,6 +35,9 @@ public class ConfigScreen extends Screen {
 
 	private static final int ROW_WIDTH = 380;
 	private static final int BUTTON_WIDTH = 120;
+
+	private final List<ConfigListWidget.Entry> listEntries = new ArrayList<>();
+	private ConfigListWidget.Entry hoveredEntry;
 
 	public ConfigScreen(Screen parent, EmConfig instance) {
 		super(Component.literal(instance.getTitle()));
@@ -86,6 +86,7 @@ public class ConfigScreen extends Screen {
 
 	public void updateList() {
 		this.list.clear();
+		this.listEntries.clear();
 		this.activeColorEditor = null;
 		int rightX = width/2+ROW_WIDTH/2;
 		int buttonLeftX = rightX-BUTTON_WIDTH-25;
@@ -172,6 +173,13 @@ public class ConfigScreen extends Screen {
 		//? if <=1.20.1
 		//super.renderDirtBackground(graphics);
 
+		this.hoveredEntry = null;
+		for (ConfigListWidget.Entry entry : this.listEntries) {
+			if (entry.info.option != null && entry.isMouseOver(mouseX, mouseY)) {
+				this.hoveredEntry = entry;
+			}
+		}
+
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 		this.list.extractRenderState(graphics, mouseX, mouseY, delta);
 
@@ -198,7 +206,9 @@ public class ConfigScreen extends Screen {
 		}
 
 		public void add(List<AbstractWidget> buttons, EntryInfo info) {
-			this.addEntry(new Entry(buttons, info));
+			Entry entry = new Entry(buttons, info);
+			this.addEntry(entry);
+			ConfigScreen.this.listEntries.add(entry);
 		}
 
 		public void clear() {
@@ -221,8 +231,9 @@ public class ConfigScreen extends Screen {
 			public final Component title;
 			private final boolean centered;
 
-			private float currentOffsetX = Float.MAX_VALUE;
-			private float currentBgAlpha = Float.MAX_VALUE;
+			private final SmoothFloat offsetX = new SmoothFloat(0.65f);
+			private final SmoothFloat bgAlpha = new SmoothFloat(0.65f);
+			private final SmoothColor textColor = new SmoothColor(0.65f);
 
 			public Entry(List<AbstractWidget> buttons, EntryInfo info) {
 				this.buttons = buttons;
@@ -243,18 +254,14 @@ public class ConfigScreen extends Screen {
 
 				float targetOffsetX = isHovered ? 4f : 0f;
 				float targetBgAlpha = isHovered ? 0.04f : 0f;
+				int targetTextColor = (hoveredEntry == this || hoveredEntry == null || info.option == null) ? 0xffffffff : 0xffa6a6a6;
 
-				if (this.currentOffsetX == Float.MAX_VALUE) this.currentOffsetX = targetOffsetX;
-				if (this.currentBgAlpha == Float.MAX_VALUE) this.currentBgAlpha = targetBgAlpha;
-
-				float speed = 0.65f;
-				float adaptiveSpeed = 1.0f - (float)Math.pow(1.0f - speed, tickDelta);
-
-				this.currentOffsetX = Mth.lerp(adaptiveSpeed, this.currentOffsetX, targetOffsetX);
-				this.currentBgAlpha = Mth.lerp(adaptiveSpeed, this.currentBgAlpha, targetBgAlpha);
+				this.offsetX.update(targetOffsetX, tickDelta);
+				this.bgAlpha.update(targetBgAlpha, tickDelta);
+				this.textColor.update(targetTextColor, tickDelta);
 
 				/* draw selection background */
-				int alphaInt = (int) (this.currentBgAlpha * 255);
+				int alphaInt = (int) (this.bgAlpha.get() * 255);
 				if (alphaInt > 0) {
 					int bgColor = (alphaInt << 24) | 0xFFFFFF;
 					int w = ConfigScreen.this.width;
@@ -269,11 +276,10 @@ public class ConfigScreen extends Screen {
 				});
 
 				/* draw text label */
-				int color = isHovered ? 0xff87ff95 : 0xffffffff;
 				if (this.centered) {
-					graphics.centeredText(Minecraft.getInstance().font, this.title, ConfigScreen.this.width/2, y+8, color);
+					graphics.centeredText(Minecraft.getInstance().font, this.title, ConfigScreen.this.width/2, y+8, this.textColor.get());
 				} else {
-					graphics.text(Minecraft.getInstance().font, this.title, x + (int)currentOffsetX, y+8, color);
+					graphics.text(Minecraft.getInstance().font, this.title, x + (int)this.offsetX.get(), y+8, this.textColor.get());
 				}
 			}
 

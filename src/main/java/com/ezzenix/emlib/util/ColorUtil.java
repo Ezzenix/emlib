@@ -1,5 +1,7 @@
 package com.ezzenix.emlib.util;
 
+import net.minecraft.util.Mth;
+
 public class ColorUtil {
 	public static int hsvToRGBA(float h, float s, float v, float a){
 		int rgb = java.awt.Color.HSBtoRGB(h, s, v);
@@ -55,6 +57,15 @@ public class ColorUtil {
 		} else {
 			return String.format("#%06x", color & 0xFFFFFF);
 		}
+	}
+
+	public static int lerp(float t, int from, int to) {
+		int a = (int) Mth.lerp(t, (from >> 24) & 0xFF, (to >> 24) & 0xFF);
+		int r = (int) Mth.lerp(t, (from >> 16) & 0xFF, (to >> 16) & 0xFF);
+		int g = (int) Mth.lerp(t, (from >> 8) & 0xFF, (to >> 8) & 0xFF);
+		int b = (int) Mth.lerp(t, from & 0xFF, to & 0xFF);
+
+		return (a << 24) | (r << 16) | (g << 8) | b;
 	}
 
 	public static int adjustBrightness(int color, float factor) {
