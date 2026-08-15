@@ -6,11 +6,7 @@ import org.slf4j.LoggerFactory;
 
 //? if forge {
 /*import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import java.util.ConcurrentModificationException;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.event.RegisterCommandsEvent;
 //? >=1.21.6 {
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 //? } else
@@ -18,8 +14,6 @@ import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(value = EmLib.MOD_ID)
@@ -35,7 +29,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 @Mod(value = EmLib.MOD_ID, dist = Dist.CLIENT)
 public class EmLib {
@@ -79,10 +72,10 @@ public class EmLib implements ModInitializer {
     }
 
 	//? if >= 1.21.6 {
-	@EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
-	//? } else {
-	/^@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-	^///? }
+	/^@EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
+	^///? } else {
+	@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+	//? }
 	public static class EmLibBusEvents {
 		@SubscribeEvent
 		public static void onPostInit(FMLClientSetupEvent event) {

@@ -1,6 +1,6 @@
 package com.ezzenix.emlib.mixin;
 
-import com.ezzenix.emlib.event.HudRenderCallback;
+import com.ezzenix.emlib.event.EmEvents;
 import com.ezzenix.emlib.util.EmPort;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -23,7 +23,7 @@ public class HudMixin {
 	@Inject(method = "extractRenderState", at=@At("RETURN"))
 	//? if >=1.21 {
 	private void onRenderHud(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-		float f = deltaTracker.getGameTimeDeltaTicks();
+		float f = deltaTracker.getGameTimeDeltaPartialTick(false);
 	//? } else {
 	/*private void onRenderHud(GuiGraphicsExtractor graphics, float f, CallbackInfo ci) {
 	*///? }
@@ -37,7 +37,9 @@ public class HudMixin {
 		if (screen instanceof LevelLoadingScreen) return;
 
 		if (!hideGui || screen != null) {
-			HudRenderCallback.EVENT.invoker().onHudRender(graphics, f);
+			EmEvents.HUD_RENDER.post(listener -> {
+				listener.invoke(graphics, f);
+			});
 		}
 	}
 }
