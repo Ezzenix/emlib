@@ -1,0 +1,69 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.ezzenix",
+    "module": "emlib",
+    "version": "1.0.1+26.1-neoforge-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "emlib-1.0.1+26.1-neoforge-SNAPSHOT.jar",
+          "url": "emlib-1.0.1+26.1-neoforge-SNAPSHOT.jar",
+          "size": 696382,
+          "sha512": "b233934f84f1d038b6f230dc9642fbf3584c3f4f34b5f6c4f6ef6345ed60e36ff325b1b3c80e615c4ab433427e8c326e09a113d65b2cf8197d519c7862d8f862",
+          "sha256": "cbd62f34ba759c159a025539c9985747827dbdd2ef054bec860914aa61bbcaa0",
+          "sha1": "462b23833a54acc9f09824e957a51f2c9508b338",
+          "md5": "3b1589f1d413966a94a7a3f10d89beca"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.llamalad7",
+          "module": "mixinextras-neoforge",
+          "version": {
+            "requires": "0.5.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "emlib-1.0.1+26.1-neoforge-SNAPSHOT.jar",
+          "url": "emlib-1.0.1+26.1-neoforge-SNAPSHOT.jar",
+          "size": 696382,
+          "sha512": "b233934f84f1d038b6f230dc9642fbf3584c3f4f34b5f6c4f6ef6345ed60e36ff325b1b3c80e615c4ab433427e8c326e09a113d65b2cf8197d519c7862d8f862",
+          "sha256": "cbd62f34ba759c159a025539c9985747827dbdd2ef054bec860914aa61bbcaa0",
+          "sha1": "462b23833a54acc9f09824e957a51f2c9508b338",
+          "md5": "3b1589f1d413966a94a7a3f10d89beca"
+        }
+      ]
+    }
+  ]
+}
