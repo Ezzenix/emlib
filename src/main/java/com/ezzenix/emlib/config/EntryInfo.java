@@ -93,7 +93,8 @@ class EntryInfo {
 
 		if (EmPort.screen() instanceof ConfigScreen configScreen) {
 			configScreen.changed();
-			EmConfig.instances.get(this.modId).entries.forEach(EntryInfo::updateLocked);
 		}
+
+		EmConfig.instances.get(this.modId).entries.forEach(EntryInfo::updateLocked);
 	}
 }
