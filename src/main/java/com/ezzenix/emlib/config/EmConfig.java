@@ -164,7 +164,7 @@ public abstract class EmConfig {
 	public @interface Option {
 		double min() default Double.MIN_NORMAL;
 		double max() default Double.MAX_VALUE;
-		int precision() default 100;
+		int precision() default 10;
 		String suffix() default "";
 		boolean offText() default false;
 		boolean isSlider() default false;

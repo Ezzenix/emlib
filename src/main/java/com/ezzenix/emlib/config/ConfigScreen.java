@@ -155,7 +155,7 @@ public class ConfigScreen extends Screen {
 	}
 
 	private Component getBooleanComponent(EntryInfo info) {
-		return (boolean)info.getValue() ? Component.translatable("emlib.yes").withStyle(ChatFormatting.GREEN) : Component.translatable("emlib.no").withStyle(ChatFormatting.RED);
+		return (boolean)info.getValue() ? Component.translatable("gui.yes").withStyle(ChatFormatting.GREEN) : Component.translatable("gui.no").withStyle(ChatFormatting.RED);
 	}
 
 	private Component getEnumComponent(EntryInfo info) {

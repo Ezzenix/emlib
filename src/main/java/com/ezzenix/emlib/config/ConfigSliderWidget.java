@@ -1,5 +1,6 @@
 package com.ezzenix.emlib.config;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 
@@ -16,8 +17,8 @@ class ConfigSliderWidget extends AbstractSliderButton {
 	}
 
 	private Component buildLabel() {
-		if (info.option.offText() && String.valueOf(info.getValue()).equals("0")) {
-			return Component.literal("OFF");
+		if (info.option.offText() && (String.valueOf(info.getValue()).equals("0") || String.valueOf(info.getValue()).equals("0.0"))) {
+			return Component.translatable("options.off").withStyle(ChatFormatting.GRAY);
 		}
 		return Component.literal(info.getValue() + info.option.suffix());
 	}
