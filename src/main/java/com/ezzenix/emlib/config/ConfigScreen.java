@@ -61,6 +61,7 @@ public class ConfigScreen extends Screen {
 		this.addWidget(this.list);
 
 		this.activeColorEditor = null;
+		this.instance.needsScreenUpdate = false;
 
 		this.updateList();
 	}
