@@ -20,3 +20,4 @@ repository {
 | 1.21.11          | Fabric, NeoForge        |
 | 26.1 - 26.1.2    | Fabric, NeoForge        |
 | 26.2             | Fabric, NeoForge        |
+| 26.3             | Fabric, NeoForge        |

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Support 26.3
+
 ## 1.0.1
 
 - Add color allowAlpha property

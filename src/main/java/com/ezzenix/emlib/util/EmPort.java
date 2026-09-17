@@ -44,7 +44,9 @@ public class EmPort {
 	}
 
 	public static boolean isKeyDown(int key) {
-		//? if >=1.21.9 {
+		//? if >=26.3 {
+		/*return InputConstants.isKeyDown(key);
+		*///? } else if >=1.21.9 {
 		return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), key);
 		//?} else
 		//return InputConstants.isKeyDown(window(), key);
@@ -55,7 +57,12 @@ public class EmPort {
 		Holder<WorldClock> overworldClock = level.registryAccess()
 			.lookupOrThrow(Registries.WORLD_CLOCK)
 			.getOrThrow(WorldClocks.OVERWORLD);
+
+		//? if >=26.3 {
+		/*long totalTicks = level.clockManager().getInstance(overworldClock).totalTicks();
+		*///? } else
 		long totalTicks = level.clockManager().getTotalTicks(overworldClock);
+
 		return totalTicks % 24000;
 		//? } else {
 		/*return level.getDayTime() % 24000;
