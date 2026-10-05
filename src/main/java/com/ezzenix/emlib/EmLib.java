@@ -49,7 +49,7 @@ public class EmLib implements ModInitializer {
 	}
 
 	//? if forge {
-    /*public EmLib(final FMLJavaModLoadingContext context) {
+    /*public EmLib() {
         initialize();
     }
 
