@@ -178,9 +178,11 @@ public class ConfigScreen extends Screen {
 		//super.renderDirtBackground(graphics);
 
 		this.hoveredEntry = null;
-		for (ConfigListWidget.Entry entry : this.listEntries) {
-			if (entry.info.option != null && entry.isMouseOver(mouseX, mouseY)) {
-				this.hoveredEntry = entry;
+		if (this.list.isMouseOver(mouseX, mouseY) && this.activeColorEditor == null) {
+			for (ConfigListWidget.Entry entry : this.listEntries) {
+				if (entry.info.option != null && entry.isMouseOver(mouseX, mouseY)) {
+					this.hoveredEntry = entry;
+				}
 			}
 		}
 
@@ -254,10 +256,8 @@ public class ConfigScreen extends Screen {
 			//?} else {
 			/*public void extractRenderState(GuiGraphicsExtractor graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
 			*///?}
-				boolean isHovered = this.isMouseOver(mouseX, mouseY) && info.option != null;
-
-				float targetOffsetX = isHovered ? 4f : 0f;
-				float targetBgAlpha = isHovered ? 0.04f : 0f;
+				float targetOffsetX = hoveredEntry == this ? 4f : 0f;
+				float targetBgAlpha = hoveredEntry == this ? 0.04f : 0f;
 				int targetTextColor = (hoveredEntry == this || hoveredEntry == null || info.option == null) ? 0xffffffff : 0xffa6a6a6;
 
 				this.offsetX.update(targetOffsetX, tickDelta);

@@ -3,6 +3,7 @@
 ## 1.0.4
 
 - Remove reference map could not be read warning.
+- Better config screen hover logic.
 
 ## 1.0.3
 
