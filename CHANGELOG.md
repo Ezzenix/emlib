@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Remove reference map could not be read warning.
+
 ## 1.0.3
 
 - Fix crash on Forge 1.21
