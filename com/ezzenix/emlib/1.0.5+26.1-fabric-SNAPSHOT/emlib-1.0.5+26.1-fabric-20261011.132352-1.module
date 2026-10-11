@@ -1,0 +1,106 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.ezzenix",
+    "module": "emlib",
+    "version": "1.0.5+26.1-fabric-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-api",
+          "version": {
+            "requires": "0.145.1+26.1"
+          }
+        },
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-gametest-api-v1",
+          "version": {
+            "requires": "0.145.1+26.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "emlib-1.0.5+26.1-fabric-SNAPSHOT.jar",
+          "url": "emlib-1.0.5+26.1-fabric-SNAPSHOT.jar",
+          "size": 62282,
+          "sha512": "16fb2ac97a89e8a39061d0b910159befe3f9bae6742e3e2105c358ebe8587e13237c8513e826f05d94a3ff8fbe70bc4a8491e2b31dbd017b14538ecc85472856",
+          "sha256": "495ee3bae27f92b695f7676ffdf6a7c75c2d0091306d6392a33abf36f6665d61",
+          "sha1": "b3271cc92caecf0d958f9bd112d611a5b3f54d2a",
+          "md5": "6c95e6e879f7fe95da1aa5598366404c"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "net.fabricmc",
+          "module": "fabric-loader",
+          "version": {
+            "requires": "0.18.5"
+          }
+        },
+        {
+          "group": "com.terraformersmc",
+          "module": "modmenu",
+          "version": {
+            "requires": "18.0.0-alpha.8"
+          }
+        },
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-api",
+          "version": {
+            "requires": "0.145.1+26.1"
+          }
+        },
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-gametest-api-v1",
+          "version": {
+            "requires": "0.145.1+26.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "emlib-1.0.5+26.1-fabric-SNAPSHOT.jar",
+          "url": "emlib-1.0.5+26.1-fabric-SNAPSHOT.jar",
+          "size": 62282,
+          "sha512": "16fb2ac97a89e8a39061d0b910159befe3f9bae6742e3e2105c358ebe8587e13237c8513e826f05d94a3ff8fbe70bc4a8491e2b31dbd017b14538ecc85472856",
+          "sha256": "495ee3bae27f92b695f7676ffdf6a7c75c2d0091306d6392a33abf36f6665d61",
+          "sha1": "b3271cc92caecf0d958f9bd112d611a5b3f54d2a",
+          "md5": "6c95e6e879f7fe95da1aa5598366404c"
+        }
+      ]
+    }
+  ]
+}
