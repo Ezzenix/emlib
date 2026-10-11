@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5
+
+- Add SmoothFloat and SmoothColor .set() and .setSpeed()
+- NeoForge and Forge Platform.isModLoaded() support early calls
+
 ## 1.0.4
 
 - Remove reference map could not be read warning.

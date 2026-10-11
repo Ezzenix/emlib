@@ -258,7 +258,7 @@ public class ConfigScreen extends Screen {
 			*///?}
 				float targetOffsetX = hoveredEntry == this ? 4f : 0f;
 				float targetBgAlpha = hoveredEntry == this ? 0.04f : 0f;
-				int targetTextColor = (hoveredEntry == this || hoveredEntry == null || info.option == null) ? 0xffffffff : 0xffa6a6a6;
+				int targetTextColor = (hoveredEntry == this || info.option == null) ? 0xffffffff : 0xffa6a6a6;
 
 				this.offsetX.update(targetOffsetX, tickDelta);
 				this.bgAlpha.update(targetBgAlpha, tickDelta);

@@ -8,11 +8,13 @@ import net.fabricmc.loader.api.FabricLoader;
 
 //? if neoforge {
 /*import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.LoadingModList;
 import net.neoforged.fml.loading.FMLPaths;
 *///?}
 
 //? if forge {
 /*import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.fml.loading.FMLPaths;
 *///?}
 
@@ -35,6 +37,9 @@ public class Platform {
         return FMLPaths.CONFIGDIR.get();
     }
     public static boolean isModLoaded(String modid) {
+    	if (ModList.get() == null) {
+			return LoadingModList.get().getModFileById(modid) != null;
+		}
         return ModList.get().isLoaded(modid);
     }
     *///?} else if forge {
@@ -45,6 +50,9 @@ public class Platform {
         return FMLPaths.CONFIGDIR.get();
     }
     public static boolean isModLoaded(String modid) {
+    	if (ModList.get() == null) {
+			return LoadingModList.get().getModFileById(modid) != null;
+		}
         return ModList.get().isLoaded(modid);
     }
     *///?}

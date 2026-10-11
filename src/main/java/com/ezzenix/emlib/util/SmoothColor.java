@@ -1,7 +1,7 @@
 package com.ezzenix.emlib.util;
 
 public class SmoothColor {
-	private final float speed;
+	private float speed;
 
 	private int value = Integer.MAX_VALUE;
 
@@ -13,6 +13,14 @@ public class SmoothColor {
 		if (this.value == Integer.MAX_VALUE) this.value = target;
 		float adaptiveSpeed = 1.0f - (float)Math.pow(1.0f - this.speed, tickDelta);
 		this.value = ColorUtil.lerp(adaptiveSpeed, this.value, target);
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public void set(int value) {
+		this.value = value;
 	}
 
 	public int get() {
